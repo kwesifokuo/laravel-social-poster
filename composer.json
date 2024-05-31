@@ -20,7 +20,6 @@
     "require": {
         "php" : "~7.0|^8.1.0",
         "janu-software/facebook-php-sdk": "^3.0",
-        "symfony/http-client": "7.2.x-dev",
         "guzzlehttp/guzzle": "^7.0.1",
         "php-http/guzzle7-adapter": "1.x-dev"
     },
