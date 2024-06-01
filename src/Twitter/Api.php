@@ -95,7 +95,8 @@ class Api
         self::$connection->setApiVersion(2);
         $parameters = [
             'text' => $message,
-            'media' => ['media_ids' => implode(',', $mediaIds) ?: null]
+            'media' => ['media_ids' => [implode(',', $mediaIds)] ?: null]
+            // 'media' => ['media_ids' => [$media1->media_id_string, $media2->media_id_string]]
         ];
         return self::$connection->post('tweets', $parameters, ['jsonPayload' => true]);
         // return self::$connection->post("statuses/update", $parameters);
