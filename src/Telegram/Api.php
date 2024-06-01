@@ -107,12 +107,13 @@ class Api
      * @param null $chat_id
      * @param $photo
      * @param string $caption
+     * @param string $parse_mode
      * @param bool $disable_notification
      * @param string $inline_keyboard
      * @param string $reply_keyboard
      * @return bool|mixed
      */
-    public static function sendPhoto($chat_id = null, $photo, $caption = '', $inline_keyboard = '', $reply_keyboard = '', $disable_notification = false, $reply_to_message_id = '')
+    public static function sendPhoto($chat_id = null, $photo, $caption = '', $inline_keyboard = '', $parse_mode = 'HTML', $reply_keyboard = '', $disable_notification = false, $reply_to_message_id = '')
     {
         self::initialize();
         $chat_id = $chat_id ? $chat_id : self::$channel_username;
