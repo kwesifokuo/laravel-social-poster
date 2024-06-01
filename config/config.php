@@ -20,8 +20,8 @@ return [
     'facebook' => [
         'app_id' => '',
         'app_secret' => '',
-        'default_graph_version' => '',
-        'page_access_token' => 'v19.0'
+        'default_graph_version' => 'v19.0',
+        'page_access_token' => ''
     ],
 
     // Set Proxy for Servers that can not Access Social Networks due to Sanctions or ...

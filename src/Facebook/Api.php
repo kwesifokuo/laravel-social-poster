@@ -73,7 +73,7 @@ class Api
         }
         $graphNode = $response->getGraphNode();
 
-        return $graphNode['id'];
+        return $graphNode; //$graphNode->id
     }
 
     /**
@@ -99,7 +99,7 @@ class Api
         }
         $graphNode = $response->getGraphNode();
 
-        return $graphNode['id'];
+        return $graphNode; //['id'];
     }
 
     /**
@@ -123,6 +123,6 @@ class Api
         }
         $graphNode = $response->getGraphNode();
 
-        return $graphNode['id'];
+        return $graphNode; //['id'];
     }
 }
