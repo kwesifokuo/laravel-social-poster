@@ -86,7 +86,7 @@ class Api
      * @param bool $display_web_page_preview
      * @return bool|mixed
      */
-    public static function sendMessage($chat_id = null, $text, $inline_keyboard = '', $reply_keyboard = '', $parse_mode = 'HTML', $disable_web_page_preview = false, $disable_notification = false, $reply_to_message_id = '')
+    public static function sendMessage($chat_id = null, $text, $inline_keyboard = '', $parse_mode = 'HTML', $reply_keyboard = '', $disable_web_page_preview = false, $disable_notification = false, $reply_to_message_id = '')
     {
         self::initialize();
         $chat_id = $chat_id ? $chat_id : self::$channel_username;

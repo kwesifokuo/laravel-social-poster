@@ -38,7 +38,7 @@ class SendTo
         if ($attachment) {
             switch ($attachment['type']) {
                 case 'photo':
-                    $result = TelegramApi::sendPhoto(null, $attachment['file'], $text, $inline_keyboard, $parse_mode, $reply_keyboard);
+                    $result = TelegramApi::sendPhoto(null, $attachment['file'], $text, $inline_keyboard, $parse_mode);
                     break;
                 case 'audio':
                     $duration = isset($attachment['duration']) ? $attachment['duration'] : '';
@@ -76,7 +76,7 @@ class SendTo
                     break;
             }
         } else {
-            $result = TelegramApi::sendMessage(null, $text, $inline_keyboard, $reply_keyboard, $parse_mode);
+            $result = TelegramApi::sendMessage(null, $text, $inline_keyboard, $parse_mode);
         }
 
         return $result;
