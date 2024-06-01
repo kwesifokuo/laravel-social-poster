@@ -28,7 +28,7 @@ class SendTo
      * @param string $inline_keyboard
      * @return bool|mixed
      */
-    public static function Telegram($text, $attachment = '', $inline_keyboard = '')
+    public static function Telegram($text, $attachment = '', $inline_keyboard = '',$reply_keyboard = '', $parse_mode = 'HTML')
     {
         if (Config::get('larasap.telegram.channel_signature')) {
             $type = isset($attachment['type']) ? 'caption' : 'text';
@@ -38,7 +38,7 @@ class SendTo
         if ($attachment) {
             switch ($attachment['type']) {
                 case 'photo':
-                    $result = TelegramApi::sendPhoto(null, $attachment['file'], $text, $inline_keyboard);
+                    $result = TelegramApi::sendPhoto(null, $attachment['file'], $text, $inline_keyboard, $parse_mode, $reply_keyboard);
                     break;
                 case 'audio':
                     $duration = isset($attachment['duration']) ? $attachment['duration'] : '';
@@ -76,7 +76,7 @@ class SendTo
                     break;
             }
         } else {
-            $result = TelegramApi::sendMessage(null, $text, $inline_keyboard);
+            $result = TelegramApi::sendMessage(null, $text, $inline_keyboard, $reply_keyboard, $parse_mode);
         }
 
         return $result;
