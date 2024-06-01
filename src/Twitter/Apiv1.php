@@ -32,10 +32,10 @@ class Api
         CURLOPT_USERAGENT => 'Twitter for PHP',
     ];
 
-    /** @var Consumer */
+    /** @var Twitter_OAuthConsumer */
     private static $consumer;
 
-    /** @var Consumer */
+    /** @var Twitter_OAuthConsumer */
     private static $token;
 
 
@@ -43,8 +43,6 @@ class Api
     private static $consumerSecret;
     private static $accessToken = null;
     private static $accessTokenSecret = null;
-    private static $connection;
-    private static $content;
 
     /**
      * Initialize
@@ -52,7 +50,7 @@ class Api
     public static function initialize()
     {
         if (!extension_loaded('curl')) {
-            throw new TwitterOAuthException('PHP extension CURL is not loaded.');
+            throw new TwitterException('PHP extension CURL is not loaded.');
         }
 
         self::$consumerKey = Config::get('larasap.twitter.consurmer_key');
@@ -62,10 +60,6 @@ class Api
 
         self::$consumer = new Twitter_OAuthConsumer(self::$consumerKey, self::$consumerSecret);
         self::$token = new Twitter_OAuthConsumer(self::$accessToken, self::$accessTokenSecret);
-
-        self::$connection = new TwitterOAuth(self::$consumerKey, self::$consumerSecret, self::$accessToken, self::$accessTokenSecret);
-        self::$connection->setApiVersion(1.1);
-        self::$content = self::$connection->get("account/verify_credentials");
     }
 
     /**
@@ -74,7 +68,7 @@ class Api
      * @param  string  path to local media file to be uploaded
      * @param  array  additional options to send to statuses/update
      * @return stdClass  see https://dev.twitter.com/rest/reference/post/statuses/update
-     * @throws TwitterOAuthException
+     * @throws TwitterException
      */
     public static function sendMessage($message, $media = [], $options = [])
     {
@@ -82,16 +76,19 @@ class Api
 
         $mediaIds = [];
         foreach ($media as $item) {
-            $res = self::$connection->upload('media/upload', ['media' => $item], ['chunkedUpload' => true]);
+            $res = self::request(
+                'https://upload.twitter.com/1.1/media/upload.json',
+                'POST',
+                null,
+                ['media' => $item]
+            );
             $mediaIds[] = $res->media_id_string;
         }
-
-        $parameters = [
-            'status' => $message, 
-            'media_ids' => implode(',', $mediaIds) ?: null
-        ];
-        // $result = self::$connection->post('tweets', $parameters, ['jsonPayload' => true]);
-        return self::$connection->post("statuses/update", $parameters);
+        return self::request(
+            'statuses/update',
+            'POST',
+            $options + ['status' => $message, 'media_ids' => implode(',', $mediaIds) ?: null]
+        );
     }
 
     /**
@@ -101,7 +98,7 @@ class Api
      * @param  array   data
      * @param  array   uploaded files
      * @return stdClass|stdClass[]
-     * @throws TwitterOAuthException
+     * @throws TwitterException
      */
     public static function request($resource, $method, array $data = null, array $files = null)
     {
@@ -118,13 +115,13 @@ class Api
             if ($val === null) {
                 unset($data[$key]);
             } elseif ($files && !$hasCURLFile && substr($val, 0, 1) === '@') {
-                throw new TwitterOAuthException('Due to limitation of cURL it is not possible to send message starting with @ and upload file at the same time in PHP < 5.5');
+                throw new TwitterException('Due to limitation of cURL it is not possible to send message starting with @ and upload file at the same time in PHP < 5.5');
             }
         }
 
         foreach ((array) $files as $key => $file) {
             if (!is_file($file)) {
-                throw new TwitterOAuthException("Cannot read the file $file. Check if file exists on disk and check its permissions.");
+                throw new TwitterException("Cannot read the file $file. Check if file exists on disk and check its permissions.");
             }
             $data[$key] = $hasCURLFile ? new \CURLFile($file) : '@' . $file;
         }
@@ -151,7 +148,7 @@ class Api
         curl_setopt_array($curl, $options);
         $result = curl_exec($curl);
         if (curl_errno($curl)) {
-            throw new TwitterOAuthException('Server error: ' . curl_error($curl));
+            throw new TwitterException('Server error: ' . curl_error($curl));
         }
 
         $payload = defined('JSON_BIGINT_AS_STRING')
@@ -159,12 +156,12 @@ class Api
             : @json_decode($result); // intentionally @
 
         if ($payload === false) {
-            throw new TwitterOAuthException('Invalid server response');
+            throw new TwitterException('Invalid server response');
         }
 
         $code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         if ($code >= 400) {
-            throw new TwitterOAuthException(isset($payload->errors[0]->message)
+            throw new TwitterException(isset($payload->errors[0]->message)
                 ? $payload->errors[0]->message
                 : "Server error #$code with answer $result",
                 $code
@@ -173,4 +170,12 @@ class Api
 
         return $payload;
     }
+}
+
+
+/**
+ * An exception generated by Twitter.
+ */
+class TwitterException extends \Exception
+{
 }
