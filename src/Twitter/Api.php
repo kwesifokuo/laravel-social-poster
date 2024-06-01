@@ -60,8 +60,8 @@ class Api
         self::$accessToken = Config::get('larasap.twitter.access_token');;
         self::$accessTokenSecret = Config::get('larasap.twitter.access_token_secret');
 
-        self::$consumer = new Twitter_OAuthConsumer(self::$consumerKey, self::$consumerSecret);
-        self::$token = new Twitter_OAuthConsumer(self::$accessToken, self::$accessTokenSecret);
+        // self::$consumer = new Twitter_OAuthConsumer(self::$consumerKey, self::$consumerSecret);
+        // self::$token = new Twitter_OAuthConsumer(self::$accessToken, self::$accessTokenSecret);
 
         self::$connection = new TwitterOAuth(self::$consumerKey, self::$consumerSecret, self::$accessToken, self::$accessTokenSecret);
         self::$connection->setApiVersion(1.1);
