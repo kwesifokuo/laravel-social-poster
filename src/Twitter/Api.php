@@ -64,7 +64,7 @@ class Api
         // self::$token = new Twitter_OAuthConsumer(self::$accessToken, self::$accessTokenSecret);
 
         self::$connection = new TwitterOAuth(self::$consumerKey, self::$consumerSecret, self::$accessToken, self::$accessTokenSecret);
-        self::$connection->setApiVersion(1.1);
+        // self::$connection->setApiVersion(1.1);
         self::$content = self::$connection->get("account/verify_credentials");
     }
 
@@ -82,16 +82,23 @@ class Api
 
         $mediaIds = [];
         foreach ($media as $item) {
+            self::$connection->setApiVersion(1.1);
             $res = self::$connection->upload('media/upload', ['media' => $item], ['chunkedUpload' => true]);
             $mediaIds[] = $res->media_id_string;
         }
 
-        $parameters = [
-            'status' => $message, 
-            'media_ids' => implode(',', $mediaIds) ?: null
-        ];
+        // $parameters = [
+        //     'status' => $message, 
+        //     'media_ids' => implode(',', $mediaIds) ?: null
+        // ];
         // $result = self::$connection->post('tweets', $parameters, ['jsonPayload' => true]);
-        return self::$connection->post("statuses/update", $parameters);
+        self::$connection->setApiVersion(2);
+        $parameters = [
+            'text' => $message,
+            'media' => ['media_ids' => implode(',', $mediaIds) ?: null]
+        ];
+        return self::$connection->post('tweets', $parameters, ['jsonPayload' => true]);
+        // return self::$connection->post("statuses/update", $parameters);
     }
 
     /**
