@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Config;
 use Cibs\LaravelSocialPoster\Telegram\Api AS TelegramApi;
 use Cibs\LaravelSocialPoster\Twitter\Api AS TwitterApi;
 use Cibs\LaravelSocialPoster\Facebook\Api AS FacebookApi;
+use Cibs\LaravelSocialPoster\LinkedIn\Api AS LinkedInApi;
 
 class SendTo
 {
@@ -119,7 +120,35 @@ class SendTo
                 break;
         }
 
-        return ($result > 0) ? true : false;
+        // return ($result > 0) ? true : false;
+        return $result; //? true : false;
+    }
+
+    /**
+     * Send message to LinkedIn page
+     *
+     * @param $type
+     * @param $data
+     * @return bool
+     */
+    public static function LinkedIn($type, $data)
+    {
+        switch ($type) {
+            case 'link':
+                $message = isset($data['message']) ? $data['message'] : '';
+                $result = LinkedInApi::sendLink($data['link'], $data['message']);
+                break;
+            case 'photo':
+                $message = isset($data['message']) ? $data['message'] : '';
+                $result = LinkedInApi::sendPhoto($data['photo'], $message);
+                break;
+            case 'text':
+                $description = isset($data['description']) ? $data['description'] : '';
+                $result = LinkedInApi::shareNone($data['video'], $data['title'], $description);
+                break;
+        }
+
+        return $result; // > 0) ? true : false;
     }
 
     /**

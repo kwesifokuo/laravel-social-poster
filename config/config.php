@@ -20,8 +20,16 @@ return [
     'facebook' => [
         'app_id' => '',
         'app_secret' => '',
-        'default_graph_version' => 'v19.0',
-        'page_access_token' => ''
+        'page_access_token' => '',
+        'default_graph_version' => 'v20.0'
+    ],
+
+    'linkedin' => [
+        'client_id' => '',
+        'client_secret' => '',
+        'access_token' => '',
+        'redirect_uri' => '',
+        'app_version' => 'v2.0'
     ],
 
     // Set Proxy for Servers that can not Access Social Networks due to Sanctions or ...
