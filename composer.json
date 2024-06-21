@@ -19,7 +19,7 @@
     ],
     "require": {
         "php" : "~7.0|^8.1.0",
-        "janu-software/facebook-php-sdk": "^3.0",
+        "janu-software/facebook-php-sdk": "^0.3.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "php-http/guzzle7-adapter": "1.x-dev",
         "abraham/twitteroauth": "^7.0"

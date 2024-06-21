@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9ae236dcb30e20ba66665a07755391ff",
+    "content-hash": "371cc8944e913a0c5fb44f3537d16e59",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -537,16 +537,16 @@
         },
         {
             "name": "janu-software/facebook-php-sdk",
-            "version": "v3.0.0",
+            "version": "v0.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/janu-software/facebook-php-sdk.git",
-                "reference": "1aea5647968c08e8dd8d53208a0ac3601a61e36e"
+                "reference": "df52f7a6cbb97eff9ed741c9bb45ffb5fac7240e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/janu-software/facebook-php-sdk/zipball/1aea5647968c08e8dd8d53208a0ac3601a61e36e",
-                "reference": "1aea5647968c08e8dd8d53208a0ac3601a61e36e",
+                "url": "https://api.github.com/repos/janu-software/facebook-php-sdk/zipball/df52f7a6cbb97eff9ed741c9bb45ffb5fac7240e",
+                "reference": "df52f7a6cbb97eff9ed741c9bb45ffb5fac7240e",
                 "shasum": ""
             },
             "require": {
@@ -602,7 +602,7 @@
             ],
             "support": {
                 "issues": "https://github.com/janu-software/facebook-php-sdk/issues",
-                "source": "https://github.com/janu-software/facebook-php-sdk/tree/v3.0.0"
+                "source": "https://github.com/janu-software/facebook-php-sdk/tree/v0.3.0"
             },
             "funding": [
                 {
@@ -614,7 +614,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2024-05-20T08:52:07+00:00"
+            "time": "2024-05-20T08:54:33+00:00"
         },
         {
             "name": "php-http/discovery",
@@ -2339,16 +2339,16 @@
         },
         {
             "name": "symfony/polyfill-ctype",
-            "version": "v1.29.0",
+            "version": "v1.30.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-ctype.git",
-                "reference": "ef4d7e442ca910c4764bce785146269b30cb5fc4"
+                "reference": "0424dff1c58f028c451efff2045f5d92410bd540"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/ef4d7e442ca910c4764bce785146269b30cb5fc4",
-                "reference": "ef4d7e442ca910c4764bce785146269b30cb5fc4",
+                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/0424dff1c58f028c451efff2045f5d92410bd540",
+                "reference": "0424dff1c58f028c451efff2045f5d92410bd540",
                 "shasum": ""
             },
             "require": {
@@ -2398,7 +2398,7 @@
                 "portable"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-ctype/tree/v1.29.0"
+                "source": "https://github.com/symfony/polyfill-ctype/tree/v1.30.0"
             },
             "funding": [
                 {
@@ -2414,7 +2414,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-01-29T20:11:03+00:00"
+            "time": "2024-05-31T15:07:36+00:00"
         },
         {
             "name": "symfony/yaml",
@@ -2489,7 +2489,7 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "stability-flags": {
         "php-http/guzzle7-adapter": 20
     },
