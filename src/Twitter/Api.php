@@ -114,7 +114,11 @@ class Api
     {
         self::initialize();
         self::$connection->setApiVersion(2);
-        return self::$connection->post("statuses/update", ["status" => $message]);
+        // return self::$connection->post("statuses/update", ["status" => $message]);
+        $parameters = [
+            'text' => $message
+        ];
+        return self::$connection->post('tweets', $parameters, ['jsonPayload' => true]);
     }
 
     /**
