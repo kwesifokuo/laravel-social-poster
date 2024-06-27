@@ -93,7 +93,20 @@ class SendTo
      */
     public static function Twitter($message, $media = [], $options = [])
     {
-        return TwitterApi::sendMessage($message, $media, $options);
+        // return TwitterApi::sendMessage($message, $media, $options);
+        switch ($options['type']) {
+            case 'status':
+                $result = TwitterApi::sendStatus($message, $options);
+                break;
+            case 'media':
+                $result = TwitterApi::sendMessage($message, $media, $options);
+                break;
+            default:
+                $result = TwitterApi::sendMessage($message, $media, $options);
+                break;
+        }
+
+        return $result;
     }
 
     /**

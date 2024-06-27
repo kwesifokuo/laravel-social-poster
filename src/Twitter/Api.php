@@ -103,6 +103,21 @@ class Api
     }
 
     /**
+     * Sends message only to the Twitter.
+     * @param  string   message encoded in UTF-8
+     * @param  string  path to local media file to be uploaded
+     * @param  array  additional options to send to statuses/update
+     * @return stdClass  see https://dev.twitter.com/rest/reference/post/statuses/update
+     * @throws TwitterOAuthException
+     */
+    public static function sendStatus($message, $options = [])
+    {
+        self::initialize();
+        self::$connection->setApiVersion(2);
+        return self::$connection->post("statuses/update", ["status" => $message]);
+    }
+
+    /**
      * Process HTTP request.
      * @param  string  URL or twitter command
      * @param  string  HTTP method GET or POST
